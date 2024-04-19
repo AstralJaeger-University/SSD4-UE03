@@ -60,13 +60,6 @@
     \clearpage
 }
 
-\newcommand{\screenshot}[1]{
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.375]{#1}
-    \end{figure}
-}
-
 % Author and subject
 \author{Felix Hillebrand}
 \newcommand{\subject}{SSD4UE}
@@ -236,18 +229,59 @@ let $age := floor (($current - $birth) div 10000)
 
     \end{enumerate}
 
-    
 \chapter{XSLT}
-\begin{enumerate}
-    % First main item
-    \item \hfill % Use hfill to move the figure to the next line
-    \begin{description}
-        \item[Aufgabe:]
-         \hfill
-        \item[Lösung:] \hfill \newline % Use hfill to move the figure to the next line
-            Solution
-    \end{description}
+
+Erstellen Sie ein Stylesheet (fitnessdokument.xslt), das zur Transformation des XML-
+Dokuments ue3\_2\_fitnessdokument.xml in ein HTML-Dokument verwendet werden kann.
+Ergänzen Sie hierfür die Vorgabe in fitnessdokument.xslt. Sie müssen hierbei keine CSS-
+Klassen explizit verwenden. Achten Sie darauf, dass das Stylesheet für verschiedene
+Fitnessdokumente funktioniert und keine sinnlosen Ausgaben produziert ~-~ z.B. 0-n Medikamente,
+0-n akademische Titel, ...
+
+\textit{Hinweis}: Verwenden Sie XSLT 2.0, um auch auf fortgeschrittene Formatierungsfunktionen Zugriff zu erhalten 
+(z.B. \href{https://www.w3.org/TR/xslt20/#format-date}{https://www.w3.org/TR/xslt20/\#format-date} 
+für die Anpassung der Zeitstempel; wie z.B. \texttt{format-dateTime(...)} oder \texttt{format-date(datum, "[D].[M].[Y]")})
+
+\begin{enumerate}[a.]
+
+    \item Binden Sie das Dokument \texttt{templates.xslt} in Ihr \texttt{fitnessdokument.xslt} ein, sodass die
+    benannten Templates verwendet werden können und setzen Sie diese nach Möglichkeit ein.
+
+    \item Geben Sie zu Beginn die Basisdaten des Fitnessdokuments, sowie die Personendaten aus.
+    
+    \item Erstellen Sie ein benanntes Template \texttt{printMessungTabelle}. 
+    Als Parameter des Templates definieren und verwenden Sie den Messungs-Typ und die Messungen. 
+    Verwenden Sie nach Möglichkeit bereits vorgegebene benannte Templates \texttt{printUserFormattedDateTime},
+    \texttt{printWertEinheit} und \texttt{getSeriennummerForMessgerätId}. 
+    Sortieren Sie die einzelnen Messungen.
+
+    \item Wird der Knoten Vitaldaten selektiert, rufen Sie das neue Template \texttt{printMessungTabelle} auf.
+
+    \item Ergänzen Sie Templates zur Ausgabe der Messgeräte bzw. des jeweiligen Messgeräts bzw. Gerätetyp, Hersteller, Modellnummer, Seriennummer.
+    
+    \item Ergänzen Sie die jeweiligen Templates, sodass die Medikationsliste bzw. die Medikation entsprechend der Vorgabe ausgegeben wird.
+    \item Ergänzen Sie in templates.xslt die Definition für den unteren bzw. oberen Schwellwert ausgehend vom Parameter messung. 
+    Sie können davon ausgehen, dass der Parameter messung einer Messung entspricht.
+    \item Ergänzen Sie weiters: Liegt der Wert ober bzw. unterhalb der Schwellwerte soll \texttt{++} bzw. \texttt{--} angezeigt werden.
+    \item Verwenden Sie das Dokument \texttt{ue3\_2\_Fitnessdokument\_spezial.xml} und prüfen Sie, ob Ihr Stylesheet aus Beispiel 1 auch Sonderfälle ordentlich verarbeiten kann. 
+    Passen Sie Ihr \texttt{fitnessdokument.xslt} oder \texttt{templates.xslt} gegebenenfalls diesbezüglich an.
+    \item Die Verarbeitung mit XSLT kann sowohl pull- als auch push-basiert erfolgen. 
+    Ihr erstelltes Stylesheet verwendet eine Mischung aus diesen beiden Verarbeitungsarten. 
+    Kennzeichnen Sie die jeweiligen Templates bzw. Abschnitte in Ihrem Stylesheet mit der Art der Verarbeitung (push-basiert / pull-basiert).
 \end{enumerate}
+
+
+\textbf{Fitnessdokument:}
+\inputminted[frame=lines, breaklines, linenos]{xslt}{assets/fitnessdokument.xslt}
+
+\textbf{Templates:}
+\inputminted[frame=lines, breaklines, linenos]{xslt}{assets/templates.xslt}
+
+\textbf{Screenshot:}
+\begin{center}
+    \includegraphics[width=\textwidth, height=\textheight]{assets/XSLOutput.png}
+\end{center}
+
 \newpage
 
 \chapter{Legal}

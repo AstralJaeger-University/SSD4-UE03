@@ -52,6 +52,9 @@ jobs:
         echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
         echo "datetime=$(TZ='Europe/Vienna' date --iso-8601=s)" >> $GITHUB_OUTPUT
 
+    - name: Zip files
+      run: zip -r release.zip assets/ main.pdf
+
     - name: Release PDF
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -61,3 +64,4 @@ jobs:
         title: Release ${{ steps.vars.outputs.datetime }}
         files: |
           *.pdf
+          release.zip
