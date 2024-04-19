@@ -1,0 +1,16 @@
+// Workspace settings
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/*.aux": true,
+        "**/*.log": true,
+        "**/*.out": true,
+        "**/*.synctex.gz": true,
+        "**/*.fdb_latexmk": true,
+        "**/*.fls": true,
+        "**/*.pyg": true,
+        "**/*.toc": true,
+        "**/main.pdf": true,
+    }
+}

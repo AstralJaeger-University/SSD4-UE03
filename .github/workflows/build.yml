@@ -1,0 +1,63 @@
+name: Build PDF
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      checks: read
+      contents: write
+      deployments: read
+      id-token: write
+      issues: read
+      discussions: read
+      packages: write
+      pages: read
+      pull-requests: read
+      repository-projects: read
+      security-events: read
+      statuses: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12' 
+    
+    - name: Install dependencies
+      run: pip install Pygments
+
+    - name: Set up LaTeX environment
+      uses: xu-cheng/latex-action@v2
+      with:
+        latexmk_shell_escape: true
+        root_file: main.tex
+
+    - name: Upload PDF file
+      uses: actions/upload-artifact@v4
+      with:
+        name: PDF
+        path: main.pdf
+    
+    - name: Set outputs
+      id: vars
+      run: |
+        echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        echo "datetime=$(TZ='Europe/Vienna' date --iso-8601=s)" >> $GITHUB_OUTPUT
+
+    - name: Release PDF
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: Release ${{ steps.vars.outputs.datetime }}
+        files: |
+          *.pdf
