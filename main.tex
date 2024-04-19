@@ -16,6 +16,7 @@
 \usepackage{caption}
 \usepackage{listings}
 \usepackage{minted}
+
 \usemintedstyle{vs}
 
 \lsbset{
@@ -99,7 +100,46 @@
     % First main item
     \item \label{item:backrefA} \hfill % Use hfill to move the figure to the next line
     \begin{description}
-        \item[Aufgabe:] 
+        \item[Aufgabe:] Übersetzen Sie die nachfolgenden textuellen Angaben in entsprechende XQuer\-Ausdrücke,
+        sodass die bei jeder Aufgabenstellung angegebene Ausgabe erzeugt wird.
+        Testen Sie diese Ausdrücke auf Basis des bereitgestellten XML\-Dokuments ue3\_1\_fitnessdokument.xml.
+        Die Verwendung von XQuery 1.0 ist ausreichend.
+        Der betroffene Namensraum aus dem XML-Dokument soll jeweils beibehalten werden.
+
+        \begin{itemize}
+        \item Selektieren Sie die Messwert-Elemente,
+        die zu Gewicht-Messungen gehören und sortieren Sie aufsteigend nach dem Datum der Messung.
+        Umgeben Sie das gesamte Resultat mit einem Element <M>.
+        \textit{(1,5 Punkt)})
+
+        \inputminted{xquery}{assets/ue3_1_1.xquery}
+
+        \item Selektieren Sie Messung-Elemente mit Blutdruck-Werten und verarbeiten Sie nur Messungen,
+        die im Kommentar (Notiz) ‚maschinell‘ (case-insensitiv) enthalten.
+        Erstellen Sie ein neues Blutdruck-Element mit dem Zeitpunkt der Messung „zeit“ als Attribut.
+        Fügen Sie zwei Kind-Elemente hinzu, „Sys“ für den systolischen Wert und „Dia“ für den diastolischen Wert.
+        Packen Sie die Ausgabe in ein „RR“-Element. Verwenden Sie zur Formatierung der Ausgabe Element- und Attributkonstruktoren.
+        \textit{(1,5 Punkte)}
+
+        \item Erstellen Sie eine Aktivitätsübersicht für alle Geräte,
+        mit denen bereits mindestens 2 Messvorgänge durchgeführt wurden,
+        führen Sie dazu auch die Zeitpunkte an.
+        Erstellen Sie hierfür ein Element „Aktivität“ und listen Sie darin „Gerät“-Elemente (mit der „id“ als Attribut) auf.
+        Die Kindelemente „Online“ von „Gerät“ enthalten die Messzeitpunkte.
+        \textit{(1,5 Punkte)}
+        \end{itemize}
+
+         \hfill
+        \item[Lösung:] \hfill \newline % Use hfill to move the figure to the next line
+            Solution
+    \end{description}
+\end{enumerate}
+
+\begin{enumerate}
+    % First main item
+    \item \label{item:backrefA} \hfill % Use hfill to move the figure to the next line
+    \begin{description}
+        \item[Aufgabe:]
          \hfill
         \item[Lösung:] \hfill \newline % Use hfill to move the figure to the next line
             Solution

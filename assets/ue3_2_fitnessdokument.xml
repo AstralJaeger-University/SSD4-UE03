@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Fitnessdokument erzeugt="2024-03-01T08:46:00+01:00" version="3" xmlns="http://www.fitness.at">
+	<Person geschlecht="weiblich" geburtsdatum="1971-08-24" svnr="8567240856">
+		<Titel position="nach">MSc</Titel>
+		<Titel position="vor">Mag.</Titel>
+		<Vorname>Sandra</Vorname>
+		<Nachname>Sportlich</Nachname>
+	</Person>
+	<Vitaldaten>
+		<Messung typ="BlutdruckPuls" zeitpunkt="2024-01-28T07:55:42" messgerätId="mg_bd1">
+			<Messwert typ="Systolisch" wert="121.0" einheit="mmHg"/>
+			<Messwert typ="Diastolisch" wert="70.0" einheit="mmHg"/>
+			<Messwert typ="Puls" wert="79.0" einheit="Schläge/min"/>
+			<Notiz>Maschinell</Notiz>
+		</Messung>
+		<Messung typ="Gewicht" zeitpunkt="2024-01-28T08:45:29" messgerätId="mg_wg1">
+			<Messwert typ="Gewicht" wert="80.6" einheit="kg"/>
+		</Messung>
+		<Messung typ="Schritte" zeitpunkt="2024-01-28T00:00:00" messgerätId="mg_ft1">
+			<Messwert typ="Schritte" wert="9800"/>
+			<Notiz>Maschinell</Notiz>
+		</Messung>
+		<Messung typ="BlutdruckPuls" zeitpunkt="2024-01-27T07:48:28" messgerätId="mg_bd1">
+			<Messwert typ="Systolisch" wert="115.0" einheit="mmHg"/>
+			<Messwert typ="Diastolisch" wert="67.0" einheit="mmHg"/>
+			<Notiz>Maschinell</Notiz>
+		</Messung>
+		<Messung typ="Gewicht" zeitpunkt="2024-01-22T09:05:51" messgerätId="mg_wg1">
+			<Messwert typ="Gewicht" wert="80.7" einheit="kg"/>
+			<Notiz>Maschinell</Notiz>
+		</Messung>
+		<Messung typ="Schritte" zeitpunkt="2024-01-20T00:00:00" messgerätId="mg_ft2">
+			<Messwert typ="Schritte" wert="6320" einheit="pro Tag"/>
+		</Messung>
+		<Messung typ="Blutzucker" zeitpunkt="2024-01-28T08:44:47" messgerätId="mg_bz1">
+			<Messwert typ="Blutzucker" wert="155.5" einheit="mg/dl"/>
+			<Messbedingung>nach dem Essen</Messbedingung>
+		</Messung>
+		<Messung typ="Blutzucker" zeitpunkt="2024-01-27T07:49:13" messgerätId="mg_bz1">
+			<Messwert typ="Blutzucker" wert="201.5" einheit="mg/dl"/>
+			<Messbedingung>nach dem Essen</Messbedingung>
+		</Messung>
+	</Vitaldaten>
+	<Grenzwertliste>
+		<Grenzwert typ="Schritte" von="2024-01-01" bis="2024-01-22">
+			<Schwellwert typ="unten" wert="10000" einheit="pro Tag"/>
+		</Grenzwert>
+		<Grenzwert typ="Blutzucker" von="2024-01-01" bis="2024-01-28">
+			<Schwellwert typ="unten" wert="80" einheit="mg/dl"/>
+			<Schwellwert typ="oben" wert="160" einheit="mg/dl"/>
+		</Grenzwert>
+	</Grenzwertliste>
+	<Messgeräte>
+		<Messgerät id="mg_bd1">
+			<Gerätetyp>Blutdruck-Messgerät</Gerätetyp>
+			<Hersteller>A/D Medical</Hersteller>
+			<Modellnummer>UA-767NFC</Modellnummer>
+			<Seriennummer>51204 00454</Seriennummer>
+		</Messgerät>
+		<Messgerät id="mg_wg1">
+			<Gerätetyp>Waage</Gerätetyp>
+			<Hersteller>Wahoo Fitness</Hersteller>
+			<Modellnummer>WFBTScalev1</Modellnummer>
+			<Seriennummer>40355 42306255</Seriennummer>
+		</Messgerät>
+		<Messgerät id="mg_ft1">
+			<Gerätetyp>Fitness Tracker</Gerätetyp>
+			<Hersteller>Polar</Hersteller>
+			<Modellnummer>loop-90047656</Modellnummer>
+			<Seriennummer>73539 012302</Seriennummer>
+		</Messgerät>
+		<Messgerät id="mg_ft2">
+			<Gerätetyp>Fitness Tracker</Gerätetyp>
+			<Hersteller>Garmin</Hersteller>
+			<Modellnummer>vivofit</Modellnummer>
+			<Seriennummer>3F7019550</Seriennummer>
+		</Messgerät>
+		<Messgerät id="mg_bz1">
+			<Gerätetyp>Blutzuckermesser</Gerätetyp>
+			<Hersteller>Aktivmed</Hersteller>
+			<Modellnummer>GlucoCheckXL</Modellnummer>
+			<Seriennummer>12231 23128829</Seriennummer>
+		</Messgerät>
+	</Messgeräte>
+	<Medikationsliste xmlns="http://www.fitness.at">
+		<Medikation einnahme="täglich" dosierung="1-0-1-0" von="2022-12-21" bis="2024-01-24" anwendung="zum Einnehmen">
+			Diazepam Actavis 10 mg Tabletten</Medikation>
+		<Medikation einnahme="täglich" dosierung="1-0-0-0" hinweis="vor dem Frühstück" anwendung="zum Einnehmen">Zithromax 250 mg Filmtabl.</Medikation>
+		<Medikation einnahme="täglich" hinweis="3x2 Tropfen" anwendung="nasal">Nasivin 0,05 % - Nasentropfen</Medikation>
+		<Medikation einnahme="bei Bedarf" dosierung="1-1-1-0" anwendung="zum Einnehmen">Seractil</Medikation>
+	</Medikationsliste>
+</Fitnessdokument>
