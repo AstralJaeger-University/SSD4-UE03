@@ -19,17 +19,6 @@
 
 \usemintedstyle{vs}
 
-\lsbset{
-    frame=tb,
-    aboveskip=3mm,
-    belowskip=3mm,
-    columns=flexible,
-    basicstyle={\small\ttfamily},
-    numbers=none,
-    breaklines=true,
-    tabsize=3
-}
-
 % Set default font to OpenSans
 \renewcommand*\familydefault{\sfdefault}
 
@@ -95,49 +84,163 @@
 \pagenumbering{arabic}
 \pagestyle{main}
 
-\chapter{Topic}
+\chapter{XQuery}
+    Übersetzen Sie die nachfolgenden textuellen Angaben in entsprechende XQuery-Ausdrücke,
+    sodass die bei jeder Aufgabenstellung angegebene Ausgabe erzeugt wird. 
+    Testen Sie diese Ausdrücke auf Basis des bereitgestellten XML-Dokuments \texttt{ue3\_1\_fitnessdokument.xml}. 
+    Die Verwendung von XQuery 1.0 ist ausreichend. 
+    Der betroffene Namensraum aus dem XML-Dokument soll jeweils beibehalten werden.
+
+    \begin{enumerate}[1.]
+    % 1.1
+    \item Selektieren Sie die Messwert-Elemente,
+    die zu Gewicht-Messungen gehören und sortieren Sie aufsteigend nach dem Datum der Messung.
+    Umgeben Sie das gesamte Resultat mit einem Element \texttt{<M>}.
+    \textit{(1,5 Punkt)}
+
+    \begin{minted}[frame=lines, breaklines, linenos]{xml}
+<M xmlns="http://www.fitness.at/fitness">
+    <Messwert typ="Gewicht" wert="80.7" einheit="kg"/>
+    <Messwert typ="Gewicht" wert="80.6" einheit="kg"/>
+</M>
+    \end{minted}
+    \textbf{Lösung:}
+    \inputminted[frame=lines, breaklines, linenos]{xquery}{assets/ue3_1_1.xq}
+    \newpage
+
+    % 1.2
+    \item Selektieren Sie Messung-Elemente mit Blutdruck-Werten und verarbeiten Sie nur
+    Messungen, die im Kommentar (Notiz) 'maschinell' (case-insensitiv) enthalten. Erstellen
+    Sie ein neues Blutdruck-Element mit dem Zeitpunkt der Messung „zeit“ als Attribut.
+    Fügen Sie zwei Kind-Elemente hinzu, „Sys“ für den systolischen Wert und „Dia“ für den
+    diastolischen Wert. Packen Sie die Ausgabe in ein „RR“-Element. Verwenden Sie zur
+    Formatierung der Ausgabe Element- und Attributkonstruktoren. \textit{(1,5 Punkte)}
+    \begin{minted}[frame=lines, breaklines, linenos]{xml}
+<RR xmlns="http://www.fitness.at/fitness">
+    <Blutdruck zeit="2024-01-28T07:55:42">
+        <Sys>121.0</Sys>
+        <Dia>70.0</Dia>
+    </Blutdruck>
+    <Blutdruck zeit="2024-01-27T07:48:28">
+        <Sys>115.0</Sys>
+        <Dia>67.0</Dia>
+    </Blutdruck>
+</RR>
+    \end{minted}
+    \textbf{Lösung:}
+    \inputminted[frame=lines, breaklines, linenos]{xquery}{assets/ue3_1_2.xq}
+    \newpage
+
+    % 1.3
+    \item Erstellen Sie eine Aktivitätsübersicht für alle Geräte, mit denen bereits mindestens 2
+    Messvorgänge durchgeführt wurden, führen Sie dazu auch die Zeitpunkte an. 
+    Erstellen Sie hierfür ein Element '\texttt{Aktivität}' und listen Sie darin '\texttt{Gerät}'-Elemente 
+    (mit der '\texttt{id}' als Attribut) auf. 
+    Die Kindelemente '\texttt{Online}' von '\texttt{Gerät}' enthalten die Messzeitpunkte. 
+    \textit{(1,5 Punkte)}
+    \begin{minted}[frame=lines, breaklines, linenos]{xml}
+<Aktivität xmlns="http://www.fitness.at/fitness">
+    <Gerät id="mg_bd1">
+        <Online>2024-01-28T07:55:42</Online>
+        <Online>2024-01-27T07:48:28</Online>
+    </Gerät>
+    <Gerät id="mg_wg1">
+        <Online>2024-01-28T08:45:29</Online>
+        <Online>2024-01-22T09:05:51</Online>
+    </Gerät>
+    <Gerät id="mg_bz1">
+        <Online>2024-01-28T08:44:47</Online>
+        <Online>2024-01-27T07:49:13</Online>
+    </Gerät>
+</Aktivität>
+    \end{minted}
+    \textbf{Lösung:}
+    \inputminted[frame=lines, breaklines, linenos]{xquery}{assets/ue3_1_3.xq}
+
+    % 1.4
+    \item Geben Sie die Titel (wenn vorhanden) und Vor- und Nachnamen der Person in einem Element 'Name' aus. 
+    Fügen Sie auch das Geburtsdatum als Element 'Geburtsdatum' hinzu und 
+    berechnen Sie auch das Alter (Attribut 'alter'). 
+    Umgeben Sie die Elemente mit einem Tag 'Person'. \textit{(2 Punkte)}
+
+    Ergänzen und verwenden Sie für die Berechnung des Alters folgenden Code:
+
+    \begin{minted}[frame=lines, breaklines, linenos]{xquery}
+let $dob := (:Date of birth / Geburtsdatum einsetzen:)
+let $birth := number(concat(substring($dob, 1, 4), substring($dob, 6, 2),
+substring($dob, 9, 2)))
+let $now := (:now/ jetzt angeben:)
+let $current := number(concat(substring($now, 1, 4), substring($now, 6, 2),
+substring($now, 9, 2)))
+let $age := floor (($current - $birth) div 10000)
+    \end{minted}
+
+    \begin{minted}[frame=lines, breaklines, linenos]{xml}
+<Person xmlns="http://www.fitness.at/person">
+    <Name>Sandra Sportlich</Name>
+    <Geburtsdatum alter="52">1971-08-24</Geburtsdatum>
+</Person>
+<!-- Titel zum Testen in XML-Dokument einfügen -->
+<Person xmlns="http://www.fitness.at/person">
+    <Name>Mag. Sandra Sportlich MSc</Name>
+    <Geburtsdatum alter="52">1971-08-24</Geburtsdatum>
+</Person>
+    \end{minted}
+    \textbf{Lösung:}
+    \inputminted[frame=lines, breaklines, linenos]{xquery}{assets/ue3_1_4.xq}
+    \newpage
+
+    % 1.5
+    \item Erstellen Sie ein XML-Fragment "Vitalwerte", das alle Messungen mit Messwerten listet.
+    Ergänzen Sie die Messwerte um ein Attribut „flag“ wenn der Messwert außerhalb angegebener Grenzwerte liegt. 
+    Berücksichtigen Sie nur Grenzwerte für den passenden Mess-Typ und beachten Sie auch das Gültigkeitsdatum. 
+    Liegt kein zutreffender Grenzwert vor bzw. ist der gemessene Wert innerhalb der Grenzwerte, entfällt das Attribut "flag".
+    Das Attribut enthält "L" für Werte unter dem unteren Grenzwert bzw. "H" für Werte über dem oberen Grenzwert. \textit{(2,5 Punkte)}
+
+    \textit{Hinweis: Verwenden Sie xs:number(...) für die Umwandlung der Grenzwerte zum Wertevergleich.}
+
+    \begin{minted}[frame=lines, breaklines, linenos]{xml}
+<Vitalwerte xmlns="http://www.fitness.at/fitness">
+    <Messung typ="BlutdruckPuls" zeitpunkt="2024-01-28T07:55:42">
+        <Messwert typ="Systolisch" wert="121.0" einheit="mmHg"/>
+        <Messwert typ="Diastolisch" wert="70.0" einheit="mmHg"/>
+        <Messwert typ="Puls" wert="79.0" einheit="Schläge/min"/>
+    </Messung>
+    <Messung typ="Gewicht" zeitpunkt="2024-01-28T08:45:29">
+        <Messwert typ="Gewicht" wert="80.6" einheit="kg"/>
+    </Messung>
+        <Messung typ="Schritte" zeitpunkt="2024-01-28T00:00:00">
+        <Messwert typ="Schritte" wert="9800" einheit=""/>
+    </Messung>
+    <Messung typ="BlutdruckPuls" zeitpunkt="2024-01-27T07:48:28">
+        <Messwert typ="Systolisch" wert="115.0" einheit="mmHg"/>
+        <Messwert typ="Diastolisch" wert="67.0" einheit="mmHg"/>
+    </Messung>
+    <Messung typ="Gewicht" zeitpunkt="2024-01-22T09:05:51">
+        <Messwert typ="Gewicht" wert="80.7" einheit="kg"/>
+    </Messung>
+        <Messung typ="Schritte" zeitpunkt="2024-01-20T00:00:00">
+        <Messwert typ="Schritte" wert="6320" einheit="pro Tag" flag="L"/>
+    </Messung>
+        <Messung typ="Blutzucker" zeitpunkt="2024-01-28T08:44:47">
+        <Messwert typ="Blutzucker" wert="155.5" einheit="mg/dl"/>
+    </Messung>
+        <Messung typ="Blutzucker" zeitpunkt="2024-01-27T07:49:13">
+        <Messwert typ="Blutzucker" wert="201.5" einheit="mg/dl" flag="H"/>
+    </Messung>
+</Vitalwerte>       
+    \end{minted}
+    \textbf{Lösung:}
+    \inputminted[frame=lines, breaklines, linenos]{xquery}{assets/ue3_1_5.xq}
+    \newpage
+
+    \end{enumerate}
+
+    
+\chapter{XSLT}
 \begin{enumerate}
     % First main item
-    \item \label{item:backrefA} \hfill % Use hfill to move the figure to the next line
-    \begin{description}
-        \item[Aufgabe:] Übersetzen Sie die nachfolgenden textuellen Angaben in entsprechende XQuer\-Ausdrücke,
-        sodass die bei jeder Aufgabenstellung angegebene Ausgabe erzeugt wird.
-        Testen Sie diese Ausdrücke auf Basis des bereitgestellten XML\-Dokuments ue3\_1\_fitnessdokument.xml.
-        Die Verwendung von XQuery 1.0 ist ausreichend.
-        Der betroffene Namensraum aus dem XML-Dokument soll jeweils beibehalten werden.
-
-        \begin{itemize}
-        \item Selektieren Sie die Messwert-Elemente,
-        die zu Gewicht-Messungen gehören und sortieren Sie aufsteigend nach dem Datum der Messung.
-        Umgeben Sie das gesamte Resultat mit einem Element <M>.
-        \textit{(1,5 Punkt)})
-
-        \inputminted{xquery}{assets/ue3_1_1.xquery}
-
-        \item Selektieren Sie Messung-Elemente mit Blutdruck-Werten und verarbeiten Sie nur Messungen,
-        die im Kommentar (Notiz) ‚maschinell‘ (case-insensitiv) enthalten.
-        Erstellen Sie ein neues Blutdruck-Element mit dem Zeitpunkt der Messung „zeit“ als Attribut.
-        Fügen Sie zwei Kind-Elemente hinzu, „Sys“ für den systolischen Wert und „Dia“ für den diastolischen Wert.
-        Packen Sie die Ausgabe in ein „RR“-Element. Verwenden Sie zur Formatierung der Ausgabe Element- und Attributkonstruktoren.
-        \textit{(1,5 Punkte)}
-
-        \item Erstellen Sie eine Aktivitätsübersicht für alle Geräte,
-        mit denen bereits mindestens 2 Messvorgänge durchgeführt wurden,
-        führen Sie dazu auch die Zeitpunkte an.
-        Erstellen Sie hierfür ein Element „Aktivität“ und listen Sie darin „Gerät“-Elemente (mit der „id“ als Attribut) auf.
-        Die Kindelemente „Online“ von „Gerät“ enthalten die Messzeitpunkte.
-        \textit{(1,5 Punkte)}
-        \end{itemize}
-
-         \hfill
-        \item[Lösung:] \hfill \newline % Use hfill to move the figure to the next line
-            Solution
-    \end{description}
-\end{enumerate}
-
-\begin{enumerate}
-    % First main item
-    \item \label{item:backrefA} \hfill % Use hfill to move the figure to the next line
+    \item \hfill % Use hfill to move the figure to the next line
     \begin{description}
         \item[Aufgabe:]
          \hfill
@@ -148,6 +251,13 @@
 \newpage
 
 \chapter{Legal}
-Die Ausarbeitung der Aufgabe wurde durch \texttt{OpenAI - GPT-4.5 Turbo}, \texttt{OpenAI - GPT-4.5 Vision}, \texttt{Anthropic -- Claude 3 Opus},  \texttt{Kagi - FastGPT} mit mehreren unterschiedlichen Prompts und Custom Instructions unterstützt.
+Die Ausarbeitung der Aufgabe wurde durch:
+\begin{itemize}
+    \item \texttt{OpenAI - GPT-4.5 Turbo}, 
+    \item \texttt{OpenAI - GPT-4.5 Vision}, 
+    \item \texttt{Anthropic -- Claude 3 Opus}, 
+    \item \texttt{Kagi - FastGPT}
+\end{itemize}
+mit mehreren unterschiedlichen Prompts und Custom Instructions sowie die verwendung des \href{https://xkcd.com/323/}{Ballmer Peak} unterstützt.
 
 \end{document}

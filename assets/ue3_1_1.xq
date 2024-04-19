@@ -1,10 +1,16 @@
-declare namespace fitness="http://www.fitness.at/fitness";
+(: Aufgabe 1.1 :)
+declare default element namespace "http://www.fitness.at/fitness";
 
-<fitness:M xmlns="http://www.fitness.at/fitness">
-{
-  for $mw in doc("ue3_1_fitnessdokument.xml") //fitness:Messwert
-  where $mw/@typ = "Gewicht"
-  order by $mw/@wert descending
-  return $mw
-}
-</fitness:M>
+<M>
+  {
+    let $doc := doc("ue3_1_fitnessdokument.xml")
+    let $mss := $doc//Fitnessdokument//Vitaldaten//Messung//Messwert
+    for $mw in $mss
+      where $mw//@typ = "Gewicht"
+      return element Messwert {
+        attribute typ { $mw/@typ },
+        attribute wert { $mw/@wert },
+        attribute einheit { $mw/@einheit }
+      }
+  }
+</M>
